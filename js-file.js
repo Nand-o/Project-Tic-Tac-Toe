@@ -48,51 +48,69 @@ function cekWinner(board, marker) {
     if (board.gameBoard[0] === marker && board.gameBoard[1] === marker && board.gameBoard[2] === marker) {
         if (marker === "X") {
             console.log("Player 1 win");
+            return true
         } else {
-        console.log("Player 2 win");
+            console.log("Player 2 win");
+            return true
         }
     } else if (board.gameBoard[0] === marker && board.gameBoard[4] === marker && board.gameBoard[8] === marker) {
         if (marker === "X") {
             console.log("Player 1 win");
+            return true
         } else {
-        console.log("Player 2 win");
+            console.log("Player 2 win");
+            return true
         }
     } else if (board.gameBoard[0] === marker && board.gameBoard[3] === marker && board.gameBoard[6] === marker) {
         if (marker === "X") {
             console.log("Player 1 win");
+            return true
         } else {
-        console.log("Player 2 win");
+            console.log("Player 2 win");
+            return true
         }
     } else if (board.gameBoard[2] === marker && board.gameBoard[4] === marker && board.gameBoard[6] === marker) {
         if (marker === "X") {
             console.log("Player 1 win");
+            return true
         } else {
-        console.log("Player 2 win");
+            console.log("Player 2 win");
+            return true
         }
     } else if (board.gameBoard[2] === marker && board.gameBoard[5] === marker && board.gameBoard[8] === marker) {
         if (marker === "X") {
             console.log("Player 1 win");
+            return true
         } else {
-        console.log("Player 2 win");
+            console.log("Player 2 win");
+            return true
         }
     } else if (board.gameBoard[6] === marker && board.gameBoard[7] === marker && board.gameBoard[8] === marker) {
         if (marker === "X") {
             console.log("Player 1 win");
+            return true
         } else {
-        console.log("Player 2 win");
+            console.log("Player 2 win");
+            return true
         }
     } else if (board.gameBoard[3] === marker && board.gameBoard[4] === marker && board.gameBoard[5] === marker) {
         if (marker === "X") {
             console.log("Player 1 win");
+            return true
         } else {
-        console.log("Player 2 win");
+            console.log("Player 2 win");
+            return true
         }
     } else if (board.gameBoard[1] === marker && board.gameBoard[4] === marker && board.gameBoard[7] === marker) {
         if (marker === "X") {
             console.log("Player 1 win");
+            return true
         } else {
-        console.log("Player 2 win");
+            console.log("Player 2 win");
+            return true
         }
+    } else {
+        return false
     }
 }
 
@@ -103,60 +121,106 @@ function playRound(player, board, pos) {
     putMarker(playerRun, boardRound, pos);
 
     if (cekWinner(board, playerRun.playerMarker)) {
-        exit
+        return null
     }
+
+    console.log(board.gameBoard);
 
     return boardRound
 }
 
-function gameStart(player1, player2) {
-    let gameBoard = makeGameBoard();
+function gameStart(nameP1, nameP2) {
+    let board = makeGameBoard();
+    ronde = 1;
 
+    const player1 = createPlayer(nameP1, 1);
+    const player2 = createPlayer(nameP2, 2);
 
-    
+    makeScreenGame(board, player1, player2);
 
-}
+    const container = document.querySelector(".gameboard-area");
 
-function testGame() {
-    let testBoard = makeGameBoard();
-    console.log(testBoard)
+    const infoDiv = document.createElement("div");
+    infoDiv.classList.add("infogame");
+    infoDiv.textContent = "Player 1 Win!";
 
-    const udin = createPlayer("udin", 1);
-    const hamim = createPlayer("hamim", 2);
+    const resetDiv = document.createElement("div");
 
-    console.log(testBoard.gameBoard);
+    resetDiv.classList.add("reset-area");
+    resetDiv.textContent = "Reset Game";
+    resetDiv.addEventListener("click", () => {
+        const container = document.querySelector(".gameboard-area");
 
-    testBoard.gameBoard = playRound(udin, testBoard, 0);
+        container.textContent = '';
+        gameStart("Dummy", "Dummy");
+    });
 
-    console.log(testBoard.gameBoard);
-
-    testBoard.gameBoard = playRound(hamim, testBoard, 4);
-
-    console.log(testBoard.gameBoard);
-
-    testBoard.gameBoard = playRound(udin, testBoard, 1);
-
-    console.log(testBoard.gameBoard);
-
-    testBoard.gameBoard = playRound(hamim, testBoard, 7);
-    
-    console.log(testBoard.gameBoard);
-
-    testBoard.gameBoard = playRound(udin, testBoard, 2);
-
-    console.log(testBoard.gameBoard);
+    // container.appendChild(gameBoardDiv);
+    container.appendChild(infoDiv);
+    container.appendChild(resetDiv);
 }
 
 // Start working with the DOM
 
-const start = document.querySelector(".start");
+let ronde;
 
-start.addEventListener("click", () => {
-    const container = document.querySelector(".container");
-    const player1 = document.querySelector(".player1");
-    const player2 = document.querySelector(".player2");
+// const start = document.querySelector(".start");
 
-    container.textContent = '';
+// start.addEventListener("click", () => {
+//     const container = document.querySelector(".start-form");
+//     const game = document.querySelector(".game");
+//     const player1 = document.querySelector(".player1");
+//     const player2 = document.querySelector(".player2");
 
-    gameStart(player1, player2);
-});
+//     container.textContent = '';
+//     container.style.cssText = "width: 0vw; height: 0vh;";
+//     game.style.cssText = "opacity: 100; width: 100vw; height: 100vh;";
+
+//     gameStart(player1, player2);
+// });
+
+gameStart("Dummy", "Dummy");
+
+
+function makeScreenGame(board, player1, player2) {
+    const container = document.querySelector(".gameboard-area");
+
+    const gameBoardDiv = document.createElement("div");
+    gameBoardDiv.classList.add("gameBoard");
+
+    for (let i = 1; i <= 9; i++) {
+        const tile = document.createElement("div");
+
+        tile.classList.add(`tileBoard${i}`);
+        tile.addEventListener("click", () => {
+            if (ronde % 2 === 0) {
+                const tileEvent = document.querySelector(`.tileBoard${i}`)
+
+                if (cekWinner(board, player2.playerMarker)) {
+                    tileEvent.textContent = "";
+                    console.log("Reset game?");
+                } else {
+                    tileEvent.textContent = "O";
+                    board.gameBoard = playRound(player2, board, (i - 1));
+                    ronde++;
+                }
+            } else {
+                const tileEvent = document.querySelector(`.tileBoard${i}`)
+
+                if (cekWinner(board, player1.playerMarker)) {
+                    tileEvent.textContent = "";
+                    console.log("Reset game?");
+                } else {
+                    tileEvent.textContent = "X";
+                    board.gameBoard = playRound(player1, board, (i - 1));
+                    ronde++;
+                }
+            }
+        });
+
+        gameBoardDiv.appendChild(tile);
+    }
+
+    container.appendChild(gameBoardDiv);
+
+}

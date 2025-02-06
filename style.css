@@ -1,6 +1,7 @@
 * {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
 .container {
@@ -14,4 +15,131 @@
     height: 70vh;
     align-self: center;
     justify-self: center;
+}
+
+.gameBoard {
+    justify-self: center;
+    background-color: black;
+    width: 650px;
+    height: 650px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 5px;
+    padding: 5px;
+    
+    & > div {
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 7rem;
+        /* color: red; */
+        
+    }
+}
+
+.game {
+    overflow: hidden;
+    /* position: absolute; */
+    width: 100vw;
+    height: 100vh;
+    /* opacity: 0; */
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+
+    & .header-game {
+        flex-grow: 0.1;
+        background-color: red;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & .title-game {
+            font-size: 3.5rem;
+            font-weight: bold;
+        }
+    }
+    
+    & .content-game {
+        flex-grow: 0.7;
+        background-color: aqua;
+    }
+
+    & .info-game {
+        flex-grow: 0.2;
+    }
+}
+
+.content-game {
+    display: flex;
+
+    & .player1-area {
+        flex-grow: 1;
+        background-color: green;
+    }
+
+    & .player2-area {
+        flex-grow: 1;
+        background-color: green;
+    }
+
+    & .gameboard-area {
+        width: 650px;
+        height: 650px;
+        background-color: white;
+        /* border: 5px solid black; */
+
+        & .infogame {
+            background-color: red;
+            width: 620px;
+            height: 100px;
+            margin-top: 10px;
+            justify-self: center;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 4rem;
+        }
+
+        & .reset-area {
+            background-color: red;
+            width: 500px;
+            height: 50px;
+            margin-top: 10px;
+            justify-self: center;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+        }
+    }
+}
+
+.player1-area,
+.player2-area {
+    display: flex;
+    flex-direction: column;
+    padding: 6em;
+    text-align: center;
+    gap: 2em;
+    /* justify-content: center;
+    align-items: center; */
+}
+
+.label-player {
+    font-size: 5rem;
+    font-weight: bold;
+}
+
+.player-name {
+    font-size: 4rem;
+}
+
+.marker {
+    font-size: 7rem;
+    font-weight: bold;
 }
